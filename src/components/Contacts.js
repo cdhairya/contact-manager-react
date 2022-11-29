@@ -2,34 +2,33 @@ import React from "react";
 import { useState } from "react";
 import Contact from "./Contact";
 
+import { Consumer, Provider } from "../context";
+
 const Contacts = () => {
-  const [contacts, setContacts] = useState([
-    {
-      id: 1,
-      name: "John Doe",
-      email: "jdoe@gmail.com",
-      phone: "111-111-1111",
-    },
-    {
-      id: 2,
-      name: "Karen Williams",
-      email: "karen@gmail.com",
-      phone: "222-222-2222",
-    },
-    {
-      id: 3,
-      name: "John Smith",
-      email: "john@gmail.com",
-      phone: "333-333-3333",
-    },
-  ]);
+  // const [contacts, setContacts] = useState();
+
+  const deleteContent = (id) => {
+    // setContacts(contacts.filter((contact) => contact.id !== id));
+    console.log("delete");
+  };
 
   return (
-    <div>
-      {contacts.map((contact) => (
-        <Contact key={contact.id} contact={contact} />
-      ))}
-    </div>
+    <Consumer>
+      {(value) => {
+        const { contacts } = value;
+        return (
+          <>
+            {contacts.map((contact) => (
+              <Contact
+                key={contact.id}
+                contact={contact}
+                deleteClickHandler={() => deleteContent(contact.id)}
+              />
+            ))}
+          </>
+        );
+      }}
+    </Consumer>
   );
 };
 
