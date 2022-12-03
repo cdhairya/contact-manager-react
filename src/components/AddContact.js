@@ -1,13 +1,29 @@
 import React, { useState } from "react";
 import { Consumer } from "../context";
 import { v4 as uuidv4 } from "uuid";
+import classnames from "classnames";
 const AddContact = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
 
+  const [errors, setErrors] = useState({});
+
   const onSubmit = (dispatch, e) => {
     e.preventDefault();
+
+    if (name === "") {
+      setErrors({ name: "Name is required" });
+      return;
+    }
+    if (email === "") {
+      setErrors({ email: "Email is required" });
+      return;
+    }
+    if (phone === "") {
+      setErrors({ phone: "Phone is required" });
+      return;
+    }
     const newContact = {
       id: uuidv4(),
       name: name,
@@ -18,6 +34,7 @@ const AddContact = () => {
     setName("");
     setEmail("");
     setPhone("");
+    setErrors({});
   };
 
   return (
@@ -36,11 +53,16 @@ const AddContact = () => {
                   <input
                     name="name"
                     type="text"
-                    className="form-control form-control"
+                    className={classnames("form-control form-control", {
+                      "is-invalid": errors.name,
+                    })}
                     placeholder="Enter Name..."
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                   />
+                  {errors.name && (
+                    <div className="invalid-feedback">{errors.name}</div>
+                  )}
                 </div>
                 <div className="mb-3">
                   <label htmlFor="email" className="form-label">
@@ -49,11 +71,16 @@ const AddContact = () => {
                   <input
                     name="email"
                     type="email"
-                    className="form-control form-control"
+                    className={classnames("form-control form-control", {
+                      "is-invalid": errors.email,
+                    })}
                     placeholder="Enter Email..."
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                   />
+                  {errors.email && (
+                    <div className="invalid-feedback">{errors.email}</div>
+                  )}
                 </div>
                 <div className="mb-3">
                   <label htmlFor="phone" className="form-label">
@@ -62,11 +89,16 @@ const AddContact = () => {
                   <input
                     name="phone"
                     type="text"
-                    className="form-control form-control"
+                    className={classnames("form-control form-control", {
+                      "is-invalid": errors.phone,
+                    })}
                     placeholder="Enter Phone..."
                     value={phone}
                     onChange={(e) => setPhone(e.target.value)}
                   />
+                  {errors.phone && (
+                    <div className="invalid-feedback">{errors.phone}</div>
+                  )}
                 </div>
                 <div className="d-grid gap-2">
                   <input
