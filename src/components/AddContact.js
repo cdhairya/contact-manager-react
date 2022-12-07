@@ -2,13 +2,14 @@ import React, { useState } from "react";
 import { Consumer } from "../context";
 import { v4 as uuidv4 } from "uuid";
 import classnames from "classnames";
+import { useNavigate } from "react-router-dom";
 const AddContact = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
 
   const [errors, setErrors] = useState({});
-
+  const navigate = useNavigate();
   const onSubmit = (dispatch, e) => {
     e.preventDefault();
 
@@ -35,6 +36,8 @@ const AddContact = () => {
     setEmail("");
     setPhone("");
     setErrors({});
+
+    navigate("/");
   };
 
   return (
