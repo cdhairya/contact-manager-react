@@ -4,12 +4,16 @@ import React from "react";
 
 import { Consumer } from "../context";
 
+import axios from "axios";
+
 const Contact = ({ contact }) => {
   const { id, name, email, phone } = contact;
 
   const [showContact, setShowContact] = useState(false);
   const deleteClickHandler = (id, dispatch) => {
-    dispatch({ type: "DELETE_CONTACT", payload: id });
+    axios
+      .delete(`https://jsonplaceholder.typicode.com/users/${id}`)
+      .then((res) => dispatch({ type: "DELETE_CONTACT", payload: id }));
   };
   return (
     <Consumer>

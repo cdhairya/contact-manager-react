@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import { Consumer } from "../context";
-import { v4 as uuidv4 } from "uuid";
 import classnames from "classnames";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
+
 const AddContact = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -26,12 +27,15 @@ const AddContact = () => {
       return;
     }
     const newContact = {
-      id: uuidv4(),
       name: name,
       email: email,
       phone: phone,
     };
-    dispatch({ type: "ADD_CONTACT", payload: newContact });
+
+    axios
+      .post("https://jsonplaceholder.typicode.com/users", newContact)
+      .then((res) => dispatch({ type: "ADD_CONTACT", payload: res.data }));
+
     setName("");
     setEmail("");
     setPhone("");
