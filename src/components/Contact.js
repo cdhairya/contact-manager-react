@@ -7,7 +7,7 @@ import { Consumer } from "../context";
 const Contact = ({ contact }) => {
   const { id, name, email, phone } = contact;
 
-  const [showContact, setShowContact] = useState(true);
+  const [showContact, setShowContact] = useState(false);
   const deleteClickHandler = (id, dispatch) => {
     dispatch({ type: "DELETE_CONTACT", payload: id });
   };
