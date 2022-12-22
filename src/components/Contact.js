@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import { useState } from "react";
 import React from "react";
-
+import { Link } from "react-router-dom";
 import { Consumer } from "../context";
 
 import axios from "axios";
@@ -34,6 +34,17 @@ const Contact = ({ contact }) => {
                 style={{ cursor: "pointer", float: "right", color: "red" }}
                 onClick={() => deleteClickHandler(id, dispatch)}
               ></i>
+              <Link to={`/contact/edit/${id}`}>
+                <i
+                  className="fas fa-pencil-alt"
+                  style={{
+                    cursor: "pointer",
+                    color: "black",
+                    marginRight: "1rem",
+                    float: "right",
+                  }}
+                ></i>
+              </Link>
             </h4>
             {showContact && (
               <ul className="list-group">
