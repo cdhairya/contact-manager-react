@@ -11,7 +11,8 @@ const AddContact = () => {
 
   const [errors, setErrors] = useState({});
   const navigate = useNavigate();
-  const onSubmit = (dispatch, e) => {
+
+  const onSubmit = async (dispatch, e) => {
     e.preventDefault();
 
     if (name === "") {
@@ -32,9 +33,12 @@ const AddContact = () => {
       phone: phone,
     };
 
-    axios
-      .post("https://jsonplaceholder.typicode.com/users", newContact)
-      .then((res) => dispatch({ type: "ADD_CONTACT", payload: res.data }));
+    const res = await axios.post(
+      "https://jsonplaceholder.typicode.com/users",
+      newContact
+    );
+
+    dispatch({ type: "ADD_CONTACT", payload: res.data });
 
     setName("");
     setEmail("");

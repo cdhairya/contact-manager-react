@@ -10,10 +10,10 @@ const Contact = ({ contact }) => {
   const { id, name, email, phone } = contact;
 
   const [showContact, setShowContact] = useState(false);
-  const deleteClickHandler = (id, dispatch) => {
-    axios
-      .delete(`https://jsonplaceholder.typicode.com/users/${id}`)
-      .then((res) => dispatch({ type: "DELETE_CONTACT", payload: id }));
+  const deleteClickHandler = async (id, dispatch) => {
+    await axios.delete(`https://jsonplaceholder.typicode.com/users/${id}`);
+
+    dispatch({ type: "DELETE_CONTACT", payload: id });
   };
   return (
     <Consumer>
